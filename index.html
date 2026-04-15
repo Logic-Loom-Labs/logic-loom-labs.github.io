@@ -186,110 +186,6 @@
       margin-bottom: 3rem;
     }
 
-    /* ── Coming Soon ── */
-    .coming-soon-wrapper {
-      background: var(--bg-secondary);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .coming-soon-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 5rem 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    .countdown-grid {
-      display: flex;
-      gap: 1.25rem;
-      margin-top: 2.5rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .countdown-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.25rem 1.75rem;
-      min-width: 90px;
-      text-align: center;
-    }
-
-    .countdown-box .value {
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--accent-light);
-      line-height: 1;
-      display: block;
-    }
-
-    .countdown-box .label {
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-top: 0.35rem;
-      display: block;
-    }
-
-    .notify-form {
-      display: flex;
-      gap: 0.75rem;
-      margin-top: 2.5rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .notify-form input[type="email"] {
-      flex: 1;
-      min-width: 220px;
-      max-width: 340px;
-      padding: 0.75rem 1.1rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--text-primary);
-      font-family: inherit;
-      font-size: 0.9rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .notify-form input[type="email"]:focus {
-      border-color: var(--accent);
-    }
-
-    .notify-form input[type="email"]::placeholder {
-      color: var(--text-muted);
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: linear-gradient(135deg, var(--accent), var(--accent-light));
-      color: #fff;
-      font-family: inherit;
-      font-size: 0.9rem;
-      font-weight: 600;
-      padding: 0.75rem 1.4rem;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: opacity 0.2s, transform 0.15s;
-    }
-
-    .btn-primary:hover {
-      opacity: 0.9;
-      transform: translateY(-1px);
-    }
-
     /* ── Apps Grid ── */
     .apps-grid {
       display: grid;
@@ -512,7 +408,6 @@
       .nav-links { display: none; }
       .hero { padding: 4rem 1.25rem 3.5rem; }
       section { padding: 3.5rem 1.25rem; }
-      .coming-soon-inner { padding: 3.5rem 1.25rem; }
     }
   </style>
 </head>
@@ -526,7 +421,6 @@
     </a>
     <ul class="nav-links">
       <li><a href="#apps">Apps</a></li>
-      <li><a href="#coming-soon">Coming Soon</a></li>
       <li><a href="#about">About</a></li>
     </ul>
   </nav>
@@ -538,39 +432,6 @@
     <p>Logic Loom Labs crafts practical, beautifully designed mobile apps that fit seamlessly into everyday life.</p>
   </header>
 
-  <!-- ── Coming Soon ── -->
-  <div class="coming-soon-wrapper" id="coming-soon">
-    <div class="coming-soon-inner">
-      <span class="section-label">What's Next</span>
-      <h2 class="section-title">Something Big is Coming</h2>
-      <p class="section-desc">Our first suite of apps is in active development. Sign up to be the first to know when we launch.</p>
-
-      <div class="countdown-grid" id="countdown">
-        <div class="countdown-box">
-          <span class="value" id="cd-days">--</span>
-          <span class="label">Days</span>
-        </div>
-        <div class="countdown-box">
-          <span class="value" id="cd-hours">--</span>
-          <span class="label">Hours</span>
-        </div>
-        <div class="countdown-box">
-          <span class="value" id="cd-minutes">--</span>
-          <span class="label">Minutes</span>
-        </div>
-        <div class="countdown-box">
-          <span class="value" id="cd-seconds">--</span>
-          <span class="label">Seconds</span>
-        </div>
-      </div>
-
-      <form class="notify-form" onsubmit="handleNotify(event)">
-        <input type="email" placeholder="Enter your email address" required aria-label="Email address" />
-        <button type="submit" class="btn-primary">Get Early Access →</button>
-      </form>
-      <p style="margin-top:0.85rem; font-size:0.78rem; color:var(--text-muted);">Early access sign-up coming soon. No spam, ever.</p>
-    </div>
-  </div>
 
   <!-- ── Apps ── -->
   <section id="apps">
@@ -670,40 +531,6 @@
   <script>
     // ── Year ──
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // ── Countdown (fixed target launch date) ──
-    const target = new Date('2026-08-01T00:00:00');
-
-    function updateCountdown() {
-      const now = new Date();
-      const diff = target - now;
-      if (diff <= 0) {
-        document.getElementById('countdown').innerHTML = '<p style="color:var(--accent-light);font-weight:700;">We\'re Live! 🎉</p>';
-        return;
-      }
-      const days    = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-      document.getElementById('cd-days').textContent    = String(days).padStart(2, '0');
-      document.getElementById('cd-hours').textContent   = String(hours).padStart(2, '0');
-      document.getElementById('cd-minutes').textContent = String(minutes).padStart(2, '0');
-      document.getElementById('cd-seconds').textContent = String(seconds).padStart(2, '0');
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-
-    // ── Notify form ──
-    function handleNotify(e) {
-      e.preventDefault();
-      const btn = e.target.querySelector('button');
-      btn.textContent = 'Registered! We\'ll be in touch ✓';
-      btn.style.background = 'linear-gradient(135deg, #2d7a4f, #3aaa6e)';
-      btn.disabled = true;
-      e.target.querySelector('input').disabled = true;
-    }
   </script>
 </body>
 </html>
