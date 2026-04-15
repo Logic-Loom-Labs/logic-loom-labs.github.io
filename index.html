@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Logic Loom Labs — Building practical, utility-driven mobile tools for the modern user." />
+  <title>Logic Loom Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-primary: #0d0f14;
+      --bg-secondary: #13161e;
+      --bg-card: #1a1e2a;
+      --bg-card-hover: #1f2435;
+      --accent: #6c63ff;
+      --accent-light: #8b85ff;
+      --accent-glow: rgba(108, 99, 255, 0.25);
+      --text-primary: #f0f2f8;
+      --text-secondary: #9299b0;
+      --text-muted: #5c6278;
+      --border: rgba(255, 255, 255, 0.07);
+      --radius: 16px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(13, 15, 20, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    /* ── Hero ── */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 6rem 2rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(108, 99, 255, 0.12);
+      border: 1px solid rgba(108, 99, 255, 0.3);
+      color: var(--accent-light);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      max-width: 700px;
+      background: linear-gradient(160deg, #ffffff 40%, #9299b0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 520px;
+      font-weight: 400;
+    }
+
+    /* ── Section shared ── */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-desc {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      max-width: 560px;
+      margin-bottom: 3rem;
+    }
+
+    /* ── Coming Soon ── */
+    .coming-soon-wrapper {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .coming-soon-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .countdown-grid {
+      display: flex;
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .countdown-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.75rem;
+      min-width: 90px;
+      text-align: center;
+    }
+
+    .countdown-box .value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent-light);
+      line-height: 1;
+      display: block;
+    }
+
+    .countdown-box .label {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+      display: block;
+    }
+
+    .notify-form {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .notify-form input[type="email"] {
+      flex: 1;
+      min-width: 220px;
+      max-width: 340px;
+      padding: 0.75rem 1.1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .notify-form input[type="email"]:focus {
+      border-color: var(--accent);
+    }
+
+    .notify-form input[type="email"]::placeholder {
+      color: var(--text-muted);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.75rem 1.4rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    /* ── Apps Grid ── */
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .app-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--accent-glow) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .app-card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(108, 99, 255, 0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .app-card:hover::before {
+      opacity: 1;
+    }
+
+    .app-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      position: relative;
+    }
+
+    .app-icon.green {
+      background: linear-gradient(135deg, #1a3a2a, #24543c);
+      border: 1px solid rgba(52, 168, 100, 0.25);
+    }
+
+    .app-icon.blue {
+      background: linear-gradient(135deg, #1a2a3a, #1e3a5c);
+      border: 1px solid rgba(52, 120, 220, 0.25);
+    }
+
+    .app-card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .app-card-title-group h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .app-card-title-group .app-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+
+    .app-card p {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      line-height: 1.65;
+      position: relative;
+    }
+
+    .app-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      position: relative;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .status-badge::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .status-badge.coming-soon {
+      color: var(--accent-light);
+    }
+
+    .status-badge.coming-soon::before {
+      background: var(--accent-light);
+      box-shadow: 0 0 6px var(--accent);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .app-card-arrow {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .app-card:hover .app-card-arrow {
+      color: var(--accent-light);
+      transform: translateX(3px);
+    }
+
+    /* ── Features ── */
+    .features-wrapper {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      padding: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .feature-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-card h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .feature-card p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: var(--text-primary);
+    }
+
+    .footer-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── App feature list ── */
+    .app-features-list {
+      color: var(--text-secondary);
+      font-size: 0.87rem;
+      padding-left: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      nav { padding: 1rem; }
+      .nav-links { display: none; }
+      .hero { padding: 4rem 1.25rem 3.5rem; }
+      section { padding: 3.5rem 1.25rem; }
+      .coming-soon-inner { padding: 3.5rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ── -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <span class="nav-logo-icon">🧠</span>
+      Logic Loom Labs
+    </a>
+    <ul class="nav-links">
+      <li><a href="#apps">Apps</a></li>
+      <li><a href="#coming-soon">Coming Soon</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <header class="hero">
+    <span class="hero-badge">✦ Utility-Driven Mobile Tools</span>
+    <h1>Tools Built for<br />the Modern User</h1>
+    <p>Logic Loom Labs crafts practical, beautifully designed mobile apps that fit seamlessly into everyday life.</p>
+  </header>
+
+  <!-- ── Coming Soon ── -->
+  <div class="coming-soon-wrapper" id="coming-soon">
+    <div class="coming-soon-inner">
+      <span class="section-label">What's Next</span>
+      <h2 class="section-title">Something Big is Coming</h2>
+      <p class="section-desc">Our first suite of apps is in active development. Sign up to be the first to know when we launch.</p>
+
+      <div class="countdown-grid" id="countdown">
+        <div class="countdown-box">
+          <span class="value" id="cd-days">--</span>
+          <span class="label">Days</span>
+        </div>
+        <div class="countdown-box">
+          <span class="value" id="cd-hours">--</span>
+          <span class="label">Hours</span>
+        </div>
+        <div class="countdown-box">
+          <span class="value" id="cd-minutes">--</span>
+          <span class="label">Minutes</span>
+        </div>
+        <div class="countdown-box">
+          <span class="value" id="cd-seconds">--</span>
+          <span class="label">Seconds</span>
+        </div>
+      </div>
+
+      <form class="notify-form" onsubmit="handleNotify(event)">
+        <input type="email" placeholder="Enter your email address" required aria-label="Email address" />
+        <button type="submit" class="btn-primary">Get Early Access →</button>
+      </form>
+      <p style="margin-top:0.85rem; font-size:0.78rem; color:var(--text-muted);">Early access sign-up coming soon. No spam, ever.</p>
+    </div>
+  </div>
+
+  <!-- ── Apps ── -->
+  <section id="apps">
+    <span class="section-label">Our Apps</span>
+    <h2 class="section-title">Meet the Lineup</h2>
+    <p class="section-desc">Two apps crafted with precision — designed to simplify golf management and personal finance.</p>
+
+    <div class="apps-grid">
+
+      <!-- HeyCaddy -->
+      <div class="app-card">
+        <div class="app-card-header">
+          <div class="app-icon green">⛳</div>
+          <div class="app-card-title-group">
+            <h3>HeyCaddy</h3>
+            <div class="app-tag">Golf Management</div>
+          </div>
+        </div>
+        <p>Your smart caddy in your pocket. HeyCaddy helps golfers track rounds, manage scorecards, analyze performance trends, and plan their next game — all from a sleek, intuitive interface.</p>
+        <ul class="app-features-list">
+          <li>Round tracking &amp; scorecard management</li>
+          <li>Handicap calculation &amp; performance stats</li>
+          <li>Course library &amp; GPS yardage</li>
+          <li>Shot history &amp; trend analysis</li>
+        </ul>
+        <div class="app-card-footer">
+          <span class="status-badge coming-soon">Coming Soon</span>
+          <span class="app-card-arrow">→</span>
+        </div>
+      </div>
+
+      <!-- Analyzer -->
+      <div class="app-card">
+        <div class="app-card-header">
+          <div class="app-icon blue">📊</div>
+          <div class="app-card-title-group">
+            <h3>Analyzer</h3>
+            <div class="app-tag">Budgeting &amp; Finance</div>
+          </div>
+        </div>
+        <p>Take command of your finances with Analyzer. Effortlessly categorize expenses, visualize spending patterns, set budget goals, and gain clear insights into where your money goes each month.</p>
+        <ul class="app-features-list">
+          <li>Expense tracking &amp; categorization</li>
+          <li>Budget goal setting &amp; alerts</li>
+          <li>Visual spending breakdowns &amp; charts</li>
+          <li>Monthly &amp; yearly financial summaries</li>
+        </ul>
+        <div class="app-card-footer">
+          <span class="status-badge coming-soon">Coming Soon</span>
+          <span class="app-card-arrow">→</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── About / Features ── -->
+  <div class="features-wrapper" id="about">
+    <section>
+      <span class="section-label">Why Logic Loom Labs</span>
+      <h2 class="section-title">Built Different</h2>
+      <p class="section-desc">We obsess over details so you don't have to. Every app we ship is purposeful, polished, and practical.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h4>Performance First</h4>
+          <p>Lightweight apps engineered for speed — no bloat, no lag, just smooth experiences on every device.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎨</div>
+          <h4>Clean UI Design</h4>
+          <p>Interfaces designed with clarity in mind. Beautiful aesthetics that never compromise usability.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h4>Privacy Focused</h4>
+          <p>Your data stays yours. We build with privacy as a core principle, not an afterthought.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛠️</div>
+          <h4>Practical Utility</h4>
+          <p>We solve real problems for real people — tools you'll reach for every single day.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="footer-logo">🧠 Logic Loom Labs</div>
+    <p>Building practical, utility-driven mobile tools for the modern user.</p>
+    <p style="margin-top: 1.25rem;">
+      &copy; <span id="year"></span> Logic Loom Labs. All rights reserved.
+    </p>
+  </footer>
+
+  <script>
+    // ── Year ──
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ── Countdown (fixed target launch date) ──
+    const target = new Date('2026-08-01T00:00:00');
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = target - now;
+      if (diff <= 0) {
+        document.getElementById('countdown').innerHTML = '<p style="color:var(--accent-light);font-weight:700;">We\'re Live! 🎉</p>';
+        return;
+      }
+      const days    = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('cd-days').textContent    = String(days).padStart(2, '0');
+      document.getElementById('cd-hours').textContent   = String(hours).padStart(2, '0');
+      document.getElementById('cd-minutes').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('cd-seconds').textContent = String(seconds).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // ── Notify form ──
+    function handleNotify(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      btn.textContent = 'Registered! We\'ll be in touch ✓';
+      btn.style.background = 'linear-gradient(135deg, #2d7a4f, #3aaa6e)';
+      btn.disabled = true;
+      e.target.querySelector('input').disabled = true;
+    }
+  </script>
+</body>
+</html>
